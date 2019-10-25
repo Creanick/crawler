@@ -4,6 +4,10 @@ module.exports = url => {
     axios
       .get(url)
       .then(result => {
+        if (result.headers["content-type"].split(";")[0] !== "text/html") {
+          reject(new Error("no html content"));
+          return;
+        }
         resolve(result.data);
       })
       .catch(err => {
