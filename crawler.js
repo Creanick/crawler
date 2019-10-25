@@ -30,6 +30,11 @@ event.on("complete", () => {
 });
 event.on("new-url-added", () => {
   while (crawlableUrl.length > 0) {
+    if (noOfUrlFetched >= urlLimit) {
+      event.emit("complete");
+      event.removeAllListeners();
+      break;
+    }
     event.emit("crawl", crawlableUrl.pop());
   }
 });
@@ -37,6 +42,7 @@ event.on("crawl", url => {
   if (noOfUrlFetched >= urlLimit) {
     event.emit("complete");
     event.removeAllListeners();
+    return;
   }
   fetcher(url)
     .then(html => {
