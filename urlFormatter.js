@@ -7,5 +7,9 @@ module.exports = {
   getTrimmedUrl: (mainUrl, baseUrl) => {
     const url = new URL(mainUrl, baseUrl);
     return url.origin + url.pathname;
+  },
+  getAbsoluteUrl: (mainUrl, baseUrl) => {
+    const url = new URL(mainUrl, baseUrl);
+    return url.href;
   }
 };
