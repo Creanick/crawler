@@ -1,9 +1,4 @@
 const { getBaseUrl } = require("./urlFormatter");
-const crawledUrls = {
-  "https://www.youtube.com": [
-    "https://www.youtube.com/channel/UC4IhgQSETRnAIEb694TwQxQ"
-  ]
-};
 const crawlableUrl = [];
 const storeCrawlableUrl = (urls, crawledUrls) => {
   urls.forEach(fullUrl => {
