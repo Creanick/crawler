@@ -1,5 +1,6 @@
 const { JSDOM } = require("jsdom");
-module.exports = html => {
+const { getAbsoluteUrl } = require("./urlFormatter");
+module.exports = (html, url) => {
   return new Promise((resolve, reject) => {
     try {
       const { window } = new JSDOM(html);
@@ -7,6 +8,9 @@ module.exports = html => {
 
       const anchorTag = document.querySelectorAll("a");
       const urls = Array.prototype.map.call(anchorTag, tag => {
+        if (url) {
+          return getAbsoluteUrl(tag.href, url);
+        }
         return tag.href;
       });
       resolve(urls);
