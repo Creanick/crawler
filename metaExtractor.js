@@ -6,10 +6,13 @@ module.exports = html => {
       const { window } = new JSDOM(html);
       const { document } = window;
       const description = document.querySelector("meta[name='description']");
-      resolve({
-        title: document.title,
-        description: description.content
-      });
+      const metaData = {
+        title: document.title
+      };
+      if (description && description.content) {
+        metaData["description"] = description.content;
+      }
+      resolve(metaData);
     } catch (err) {
       reject(err);
     }
